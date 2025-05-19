@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mars</title>
+<style>
+  body {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    background: rgba(0,0,0,0.65);
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000000cc;
+    text-align: center;
+  }
+  h1, h2 {
+    text-align: center;
+    color: #ff7043;
+    text-shadow: 0 0 8px #2d0a00cc;
+    margin-bottom: 1rem;
+  }
+  img {
+    max-width: 180px;
+    height: auto;
+    margin: 1rem auto;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00000099;
+    background: #222;
+  }
+  p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.2em;
+  }
+  a {
+    color: #00ffd9;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #00e0cc;
+  }
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    font-style: italic;
+    color: #aaccee;
+  }
+  nav.planet-nav {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    position: relative;
+    z-index: 2;
+  }
+  nav.planet-nav a {
+    display: inline-block;
+    margin: 0 1.2rem;
+    color: #fff;
+    background: rgba(0, 217, 184, 0.85);
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-size: 1.05rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px #0003;
+  }
+  nav.planet-nav a:hover, nav.planet-nav a:focus {
+    background: #00d9b8;
+    color: #222;
+    box-shadow: 0 4px 16px #00d9b899;
+  }
+</style>
+</head>
+<body>
+<nav class="planet-nav" role="navigation" aria-label="Page navigation">
+  <a href="index.html">Home</a>
+  <a href="missions.html">Missions</a>
+  <a href="agencies.html">Space Agencies</a>
+</nav>
+<div class="content" role="main">
+  <h1>Mars</h1>
+  <p>Mars is the fourth planet from the Sun, known as the Red Planet due to its reddish appearance caused by iron oxide on its surface. It has a thin atmosphere and surface features such as the largest volcano and canyon in the solar system.</p>
+  <h2>Moons and Rovers</h2>
+  <p>Mars has two small moons: Phobos and Deimos.</p>
+  <p>Multiple rovers have explored Mars, including Spirit, Opportunity, Curiosity, and Perseverance, studying its geology and potential for past life.</p>
+  <p>
+    <a href="https://en.wikipedia.org/wiki/Phobos_(moon)" target="_blank" rel="noopener noreferrer">Learn about Phobos</a> | 
+    <a href="https://en.wikipedia.org/wiki/Deimos_(moon)" target="_blank" rel="noopener noreferrer">Learn about Deimos</a> | 
+    <a href="https://en.wikipedia.org/wiki/Curiosity_(rover)" target="_blank" rel="noopener noreferrer">Learn about Curiosity Rover</a>
+  </p>
+  <h2>Suitability for Life</h2>
+  <p>Mars is currently inhospitable for life as we know it. However, it is considered one of the most promising planets for potential human colonization in the future.</p>
+</div>
+<footer>
+  &copy; 2025 Solar System Explorer
+</footer>
+</body>
+</html>

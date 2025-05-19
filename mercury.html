@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mercury</title>
+<style>
+  body {
+    background-image: url('https://images-assets.nasa.gov/image/PIA16853/PIA16853~orig.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.65);
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000000cc;
+    text-align: center;
+  }
+  h1, h2 {
+    text-align: center;
+    color: #ffe066;
+    text-shadow: 0 0 8px #6b5b1c;
+    margin-bottom: 1rem;
+  }
+  img {
+    max-width: 180px;
+    height: auto;
+    margin: 1rem auto;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00000099;
+    background: #222;
+  }
+  p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.2em;
+  }
+  a {
+    color: #00ffd9;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #00e0cc;
+  }
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    font-style: italic;
+    color: #aaccee;
+  }
+  nav.planet-nav {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    position: relative;
+    z-index: 2;
+  }
+  nav.planet-nav a {
+    display: inline-block;
+    margin: 0 1.2rem;
+    color: #fff;
+    background: rgba(0, 217, 184, 0.85);
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-size: 1.05rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px #0003;
+  }
+  nav.planet-nav a:hover, nav.planet-nav a:focus {
+    background: #00d9b8;
+    color: #222;
+    box-shadow: 0 4px 16px #00d9b899;
+  }
+</style>
+</head>
+<body>
+<nav class="planet-nav" role="navigation" aria-label="Page navigation">
+  <a href="index.html">Home</a>
+  <a href="missions.html">Missions</a>
+  <a href="agencies.html">Space Agencies</a>
+</nav>
+<div class="content" role="main">
+  <img src="https://space-facts.com/wp-content/uploads/mercury.png" alt="Image of Mercury" />
+  <h1>Mercury</h1>
+  <p>Smallest and closest to the Sun, Mercury has no moons and experiences extreme temperature swings.</p>
+  <h2>Moons and Rovers</h2>
+  <p>Mercury has no natural moons.</p>
+  <p>No rovers have been sent to Mercury. However, NASA's MESSENGER spacecraft orbited Mercury from 2011 to 2015, mapping its surface and studying its magnetic field.</p>
+  <p>
+    <a href="https://en.wikipedia.org/wiki/List_of_natural_satellites_of_Mercury" target="_blank" rel="noopener noreferrer">List of Mercury's Moons</a> |
+    <a href="https://en.wikipedia.org/wiki/MESSENGER" target="_blank" rel="noopener noreferrer">Learn more about MESSENGER</a>
+  </p>
+  <h2>Suitability for Life</h2>
+  <p>Due to its lack of atmosphere and extreme temperature fluctuations, Mercury is not suitable for living beings in the present or foreseeable future.</p>
+</div>
+<footer>
+  &copy; 2025 Solar System Explorer
+</footer>
+</body>
+</html>
+

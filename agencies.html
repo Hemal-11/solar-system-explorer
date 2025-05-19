@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Space Agencies - Solar System Explorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: #ebebeb;
+    background-color: #0a1128;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    padding: 1rem 1.5rem 3rem;
+  }
+  #solarSystemCanvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: #00d9b8;
+    letter-spacing: 3px;
+    text-shadow: 0 0 16px #00d9b8cc;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.05rem;
+    padding: 0.6rem 1.5rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    color: #00d9b8;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #00d9b8cc;
+    color: #0a1128;
+    box-shadow: 0 0 14px #00d9b8dd;
+  }
+  section {
+    background: rgba(10, 17, 40, 0.88);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 0 30px #00d9b85a;
+    margin-bottom: 2.5rem;
+  }
+  section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    color: #00d9b8;
+    margin-bottom: 1.3rem;
+    border-bottom: 3px solid #00d9b8;
+    padding-bottom: 0.5rem;
+    text-align: center;
+  }
+  .agency-list {
+    list-style-type: none;
+    padding-left: 0;
+    max-width: 800px;
+    margin: auto;
+  }
+  .agency-list li {
+    background: rgba(0, 31, 47, 0.85);
+    border-radius: 15px;
+    margin-bottom: 1.8rem;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 15px #00d9b885;
+    transition: background-color 0.3s ease;
+    display: flex;
+    gap: 1.3rem;
+    align-items: flex-start;
+  }
+  .agency-list li:hover {
+    background-color: #003841;
+  }
+  .agency-logo {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px #00d9b8cc);
+  }
+  .agency-content {
+    flex: 1;
+  }
+  .agency-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #00d9b8;
+    font-size: 1.9rem;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: underline;
+    outline-offset: 3px;
+  }
+  .agency-description {
+    font-size: 1rem;
+    color: #aacceecc;
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+  }
+  .agency-latest {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #99d9e9cc;
+    border-left: 3px solid #00d9b8;
+    padding-left: 1rem;
+    display: none;
+    white-space: pre-wrap;
+  }
+  footer {
+    color: #4499ccbb;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+    padding-top: 3rem;
+    text-shadow: 0 0 4px #112233aa;
+  }
+  @media (max-width: 720px) {
+    .agency-list li {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+    .agency-logo {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  @media (max-width: 400px) {
+    .agency-title {
+      font-size: 1.5rem;
+    }
+    .agency-logo {
+      width: 80px;
+      height: 80px;
+    }
+  }
+</style>
+</head>
+<body>
+<canvas id="solarSystemCanvas" aria-hidden="true"></canvas>
+<div class="container">
+  <header>
+    <h1>Space Agencies</h1>
+  </header>
+  <nav role="navigation" aria-label="Page navigation">
+    <a href="index.html" tabindex="0">Home</a>
+    <a href="planets.html" tabindex="0">Planets</a>
+    <a href="missions.html" tabindex="0">Missions</a>
+  </nav>
+
+  <section aria-labelledby="agencies-heading">
+    <h2 id="agencies-heading">Space Agencies</h2>
+    <ul class="agency-list" role="list">
+      <li>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Indian_Space_Research_Organisation_Logo.svg/640px-Indian_Space_Research_Organisation_Logo.svg.png" alt="ISRO Logo" class="agency-logo" />
+        <div class="agency-content">
+          <span class="agency-title" tabindex="0" data-agency="isro">ISRO (Indian Space Research Organisation)</span>
+          <p class="agency-description">
+            Founded in 1969, ISRO is India’s national space agency known for pioneering cost-effective space missions like Chandrayaan and Mangalyaan. It has expanded its capabilities towards manned missions like Gaganyaan and international collaborations to advance space technology.
+          </p>
+          <div class="agency-latest" id="isro-latest">Loading latest information...</div>
+        </div>
+      </li>
+      <li>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1024px-NASA_logo.svg.png" alt="NASA Logo" class="agency-logo" />
+        <div class="agency-content">
+          <span class="agency-title" tabindex="0" data-agency="nasa">NASA (National Aeronautics and Space Administration)</span>
+          <p class="agency-description">
+            Established in 1958, NASA leads the United States in space exploration with landmark programs like Apollo and Mars rover missions. Currently, NASA is active with the Artemis Moon program, Mars exploration, Earth sciences, and many international partnerships.
+          </p>
+          <div class="agency-latest" id="nasa-latest">Loading latest information...</div>
+        </div>
+      </li>
+      <li>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/ESA_logo.svg/640px-ESA_logo.svg.png" alt="ESA Logo" class="agency-logo" />
+        <div class="agency-content">
+          <span class="agency-title" tabindex="0" data-agency="esa">ESA (European Space Agency)</span>
+          <p class="agency-description">
+            Formed in 1975, ESA is a coalition of 22 European member states collaborating on a range of missions including the Rosetta comet mission, Mars Express, and Earth observation. ESA champions international cooperation in space science and technology.
+          </p>
+          <div class="agency-latest" id="esa-latest">Loading latest information...</div>
+        </div>
+      </li>
+      <li>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Jaxa_logo.svg/640px-Jaxa_logo.svg.png" alt="JAXA Logo" class="agency-logo" />
+        <div class="agency-content">
+          <span class="agency-title" tabindex="0" data-agency="jaxa">JAXA (Japan Aerospace Exploration Agency)</span>
+          <p class="agency-description">
+            Established in 2003, JAXA is Japan’s national space agency known for missions including the Hayabusa asteroid sample returns and contributions to the International Space Station. JAXA also plans lunar and Martian exploration with cutting-edge technology.
+          </p>
+          <div class="agency-latest" id="jaxa-latest">Loading latest information...</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 Solar System Explorer | Data sourced from NASA, ESA, ISRO, JAXA official websites.
+</footer>
+
+<script>
+  const canvas = document.getElementById('solarSystemCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  const starsCount = 180;
+  let stars = [];
+
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createStars() {
+    stars = [];
+    for(let i=0; i < starsCount; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.3 + 0.3,
+        alpha: Math.random(),
+        delta: (Math.random() * 0.02) + 0.009
+      });
+    }
+  }
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    createStars();
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  const sun = {radius: 30, color: '#ffd93b'};
+  const planets = [
+    {name: 'Mercury', distance: 60, radius: 5, color: '#b9b9b9', speed: 0.047, orbitOffset: 0},
+    {name: 'Venus', distance: 90, radius: 10, color: '#d9b38c', speed: 0.035, orbitOffset: 1},
+    {name: 'Earth', distance: 120, radius: 10, color: '#3a86ff', speed: 0.03, orbitOffset: 2},
+    {name: 'Mars', distance: 150, radius: 8, color: '#ff6b6b', speed: 0.024, orbitOffset: 3},
+    {name: 'Jupiter', distance: 200, radius: 18, color: '#f9a825', speed: 0.013, orbitOffset: 4},
+    {name: 'Saturn', distance: 250, radius: 16, color: '#f0e68c', speed: 0.01, orbitOffset: 5},
+    {name: 'Uranus', distance: 290, radius: 14, color: '#6bc5c9', speed: 0.007, orbitOffset: 6},
+    {name: 'Neptune', distance: 330, radius: 14, color: '#254b95', speed: 0.005, orbitOffset: 7}
+  ];
+
+  let angle = 0;
+
+  function drawStars() {
+    stars.forEach(star => {
+      star.alpha += star.delta;
+      if(star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
+
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+      ctx.fill();
+    });
+  }
+
+  function drawSun(centerX, centerY) {
+    const auraRadii = [sun.radius * 1.6, sun.radius * 2.8, sun.radius * 4.4];
+    const auraColors = ['#ffef7d55', '#ffe87e33', '#ffd24c22'];
+    auraRadii.forEach((r, i) => {
+      const gradient = ctx.createRadialGradient(centerX, centerY, sun.radius, centerX, centerY, r);
+      gradient.addColorStop(0, auraColors[i]);
+      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, r, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+    const pulse = 3 * Math.sin(angle * 3);
+    const sunGradient = ctx.createRadialGradient(centerX, centerY, sun.radius * 0.5 + pulse * 0.3, centerX, centerY, sun.radius + pulse);
+    sunGradient.addColorStop(0, '#fff3a1');
+    sunGradient.addColorStop(1, sun.color);
+    ctx.fillStyle = sunGradient;
+    ctx.shadowColor = '#fffbb099';
+    ctx.shadowBlur = 28 + pulse * 2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, sun.radius + pulse * 0.5, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    drawStars();
+    const centerX = width / 2;
+    const centerY = height / 2;
+    drawSun(centerX, centerY);
+    ctx.strokeStyle = '#00d9b844';
+    ctx.lineWidth = 1.2;
+    planets.forEach(p => {
+      const pulsation = 2 * Math.sin(angle * 2 + p.orbitOffset) * 0.5;
+      const wobbleX = 1.5 * Math.sin(angle * 1.5 + p.orbitOffset);
+      const wobbleY = 1.5 * Math.cos(angle * 1.7 + p.orbitOffset);
+      ctx.beginPath();
+      ctx.ellipse(centerX + wobbleX, centerY + wobbleY, p.distance + pulsation, p.distance * 0.95 + pulsation * 0.7, 0, 0, 2 * Math.PI);
+      ctx.stroke();
+    });
+    planets.forEach((planet, i) => {
+      const baseAngle = angle * planet.speed + i;
+      const orbitX = planet.distance + 3 * Math.sin(angle * 2.3 + i * 1.7);
+      const orbitY = planet.distance * 0.95 + 2 * Math.cos(angle * 1.9 + i * 1.4);
+      const x = centerX + orbitX * Math.cos(baseAngle);
+      const y = centerY + orbitY * Math.sin(baseAngle);
+      const gradient = ctx.createRadialGradient(x - planet.radius / 3, y - planet.radius / 3, 0, x, y, planet.radius);
+      gradient.addColorStop(0, '#ffffffcc');
+      gradient.addColorStop(1, planet.color);
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.shadowColor = '#000000cc';
+      ctx.shadowBlur = 10;
+      ctx.arc(x, y, planet.radius, 0, 2 * Math.PI);
+      ctx.fill();
+      if (planet.name === 'Saturn') {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle * 0.02 + Math.sin(angle * 0.5) * 0.3);
+        ctx.strokeStyle = '#dcc87fbb';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, planet.radius * 1.8, planet.radius * 0.75, 0.25, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.restore();
+      }
+    });
+    angle += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  // This script fetches the latest news from various space agencies and displays them on the page.
+  // It uses the RSS2JSON API to convert RSS feeds into JSON format for easier handling.
+  const agencyFeeds = {
+    isro: "https://www.thehindu.com/sci-tech/science/isro/?service=rss",
+    nasa: "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+    esa: "https://www.esa.int/rssfeed/Our_Activities",
+    jaxa: "https://global.jaxa.jp/projects/rss.xml"
+  };
+
+  function fetchLatestNews(agency, feedUrl) {
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
+      .then(response => response.json())
+      .then(data => {
+        const el = document.getElementById(`${agency}-latest`);
+        // Always try to show at least the last item, even if items is empty or undefined
+        if (el && data.items && data.items.length > 0) {
+          el.innerHTML = data.items.slice(0, 2).map(item =>
+            `<a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>`
+          ).join('<br>');
+        } else if (el && data.feed && data.feed.link && data.feed.title) {
+          el.innerHTML = `<a href="${data.feed.link}" target="_blank" rel="noopener">See latest updates on ${data.feed.title}</a>`;
+        } else if (el) {
+          let fallbackLinks = {
+            isro: 'https://www.isro.gov.in/PressRelease.html',
+            nasa: 'https://www.nasa.gov/news/releases/latest/index.html',
+            esa: 'https://www.esa.int/Newsroom',
+            jaxa: 'https://global.jaxa.jp/projects/'
+          };
+          el.innerHTML = `<a href="${fallbackLinks[agency]}" target="_blank" rel="noopener">Visit official ${agency.toUpperCase()} news page</a>`;
+        }
+      })
+      .catch(() => {
+        const el = document.getElementById(`${agency}-latest`);
+        if (el) {
+          let fallbackLinks = {
+            isro: 'https://www.isro.gov.in/PressRelease.html',
+            nasa: 'https://www.nasa.gov/news/releases/latest/index.html',
+            esa: 'https://www.esa.int/Newsroom',
+            jaxa: 'https://global.jaxa.jp/projects/'
+          };
+          el.innerHTML = `<a href="${fallbackLinks[agency]}" target="_blank" rel="noopener">Visit official ${agency.toUpperCase()} news page</a>`;
+        }
+      });
+  }
+
+  function updateLatest() {
+    fetchLatestNews('isro', agencyFeeds.isro);
+    fetchLatestNews('nasa', agencyFeeds.nasa);
+    fetchLatestNews('esa', agencyFeeds.esa);
+    fetchLatestNews('jaxa', agencyFeeds.jaxa);
+  }
+
+  updateLatest();
+  setInterval(updateLatest, 60000);
+
+  document.querySelectorAll('.agency-title').forEach(title => {
+    title.addEventListener('click', () => {
+      const agency = title.getAttribute('data-agency');
+      document.querySelectorAll('.agency-latest').forEach(div => {
+        if(div.id === agency + '-latest'){
+          div.style.display = div.style.display === 'block' ? 'none' : 'block';
+          if(div.style.display === 'block') div.scrollIntoView({behavior: 'smooth'});
+        } else {
+          div.style.display = 'none';
+        }
+      });
+    });
+    title.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        title.click();
+      }
+    });
+  });
+</script>
+
+</html></body></body>
+</html>

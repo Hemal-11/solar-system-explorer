@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Earth</title>
+<style>
+  body {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/1200px-The_Earth_seen_from_Apollo_17.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    z-index: 0;
+  }
+  nav.planet-nav {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    position: relative;
+    z-index: 2;
+  }
+  nav.planet-nav a {
+    display: inline-block;
+    margin: 0 1.2rem;
+    color: #fff;
+    background: rgba(0, 217, 184, 0.85);
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-size: 1.05rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px #0003;
+  }
+  nav.planet-nav a:hover, nav.planet-nav a:focus {
+    background: #00d9b8;
+    color: #222;
+    box-shadow: 0 4px 16px #00d9b899;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.35);
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00000055;
+    text-align: center;
+  }
+  h1, h2 {
+    text-align: center;
+    color: #aeeaff;
+    text-shadow: 0 0 6px #000000cc;
+    margin-bottom: 1rem;
+  }
+  img {
+    max-width: 180px;
+    height: auto;
+    margin: 1rem auto;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00000099;
+    background: #222;
+  }
+  p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.2em;
+  }
+  a {
+    color: #aeeaff;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #fff;
+  }
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    font-style: italic;
+    color: #aeeaff;
+  }
+</style>
+</head>
+<body>
+<nav class="planet-nav" role="navigation" aria-label="Page navigation">
+  <a href="index.html">Home</a>
+  <a href="missions.html">Missions</a>
+  <a href="agencies.html">Space Agencies</a>
+</nav>
+<div class="content" role="main">
+  <img src="https://space-facts.com/wp-content/uploads/earth.png" alt="Image of Earth" />
+  <h1>Earth</h1>
+  <p>Our home, rich with life, orbiting with a single natural satellite, Luna (the Moon).</p>
+  <h2>Moons of Earth</h2>
+  <p>Earth has one natural satellite, the Moon.</p>
+  <a href="https://en.wikipedia.org/wiki/Moon" target="_blank" rel="noopener noreferrer">Learn more about the Moon</a>
+  <h2>Rovers Sent to Earth</h2>
+  <p>No rovers have been sent to Earth, as it is our home planet and already well explored by humans.</p>
+</div>
+<footer>
+  &copy; 2025 Solar System Explorer
+</footer>
+</body>
+</html>

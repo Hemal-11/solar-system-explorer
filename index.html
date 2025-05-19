@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Solar System Explorer - Planets</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: #ebebeb;
+    background-color: #0a1128;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  #solarSystemCanvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background-color: transparent;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: #00d9b8;
+    letter-spacing: 3px;
+    text-shadow: 0 0 16px #00d9b8cc;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.05rem;
+    padding: 0.6rem 1.5rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    color: #00d9b8;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #00d9b8cc;
+    color: #0a1128;
+    box-shadow: 0 0 14px #00d9b8dd;
+  }
+
+  section {
+    background: rgba(10, 17, 40, 0.88);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 0 30px #00d9b85a;
+    transition: transform 0.5s ease;
+  }
+  section:hover {
+    transform: scale(1.02);
+  }
+  section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    color: #00d9b8;
+    margin-bottom: 1.3rem;
+    border-bottom: 3px solid #00d9b8;
+    padding-bottom: 0.5rem;
+  }
+
+  .planet-card {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1.3rem;
+    gap: 1.8rem;
+    justify-content: center;
+  }
+  .planet {
+    background: rgba(0, 31, 47, 0.85);
+    border-radius: 15px;
+    flex: 1 1 250px;
+    max-width: 280px;
+    box-shadow:
+      0 0 15px #00d9b885,
+      inset 0 0 25px #00d9b844;
+    padding: 1.2rem;
+    color: #d0e8f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .planet:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 0 25px #00d9b8cc,
+      inset 0 0 35px #00d9b8aa;
+  }
+  .planet img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 1.1rem;
+    border-radius: 50%;
+    border: 3px solid #00d9b8aa;
+    box-shadow: 0 0 15px #00d9b8cc;
+    filter: drop-shadow(0 0 4px #00d9b8cc);
+  }
+  .planet h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: #00ccc5;
+    text-shadow: 0 0 6px #00ccc5bb;
+  }
+  .planet p {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: #a8d2dbcc;
+    text-align: center;
+  }
+  .moon-list {
+    margin-top: 0.6rem;
+    font-size: 0.88rem;
+    color:#7fbbc5dd;
+    font-style: italic;
+  }
+
+  footer {
+    color: #4499ccbb;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+    padding-top: 3rem;
+    text-shadow: 0 0 4px #112233aa;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      max-width: 100%;
+      padding: 2rem 1rem 3rem;
+    }
+    .planet-card {
+      gap: 1.25rem;
+      justify-content: center;
+    }
+    .planet {
+      flex: 1 1 45%;
+      max-width: 45%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 2rem;}
+    nav {
+      flex-direction: column;
+      gap: 1.1rem;
+      padding: 0 10px;
+    }
+    nav a {
+      font-size: 1rem;
+      padding: 0.5rem 1.2rem;
+    }
+    .planet {
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+    section {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    header h1 {
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+    }
+    nav a {
+      padding: 0.4rem 1rem;
+    }
+    .planet img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>
+</head>
+<body>
+<canvas id="solarSystemCanvas" aria-hidden="true"></canvas>
+<div class="container">
+  <header>
+    <h1>Solar System Explorer</h1>
+  </header>
+  <nav role="navigation" aria-label="Page navigation">
+    <a href="index.html" tabindex="0">Home</a>
+    <a href="planets.html" tabindex="0">Planets</a>
+    <a href="missions.html" tabindex="0">Missions</a>
+    <a href="agencies.html" tabindex="0">Space Agencies</a>
+  </nav>
+  <main>
+    <section aria-labelledby="planets-heading">
+      <h2 id="planets-heading">Explore the Planets</h2>
+      <div class="planet-card">
+        <!-- Mercury Card -->
+        <article class="planet" tabindex="0" aria-label="Planet Mercury">
+          <a href="mercury.html" style="text-decoration:none; color:inherit;">
+            <img src="https://space-facts.com/wp-content/uploads/mercury.png" alt="Image of Mercury" />
+            <h3>Mercury</h3>
+            <p>Smallest and closest to the Sun, Mercury has no moons and experiences extreme temperature swings.</p>
+          </a>
+        </article>
+        <!-- Venus Card -->
+        <article class="planet" tabindex="0" aria-label="Planet Venus">
+          <a href="venus.html" style="text-decoration:none; color:inherit;">
+            <img src="https://space-facts.com/wp-content/uploads/venus.png" alt="Image of Venus" />
+            <h3>Venus</h3>
+            <p>Venus is the hottest planet with a thick, toxic atmosphere and no moons orbiting it.</p>
+          </a>
+        </article>
+        <!-- Earth Card -->
+        <article class="planet" tabindex="0" aria-label="Planet Earth">
+          <a href="earth.html" style="text-decoration:none; color:inherit;">
+            <img src="https://space-facts.com/wp-content/uploads/earth.png" alt="Image of Earth" />
+            <h3>Earth</h3>
+            <p>Our home, rich with life, orbiting with a single natural satellite, Luna (the Moon).</p>
+            <p class="moon-list"><strong>Moon:</strong> Luna</p>
+          </a>
+        </article>
+        <!-- Mars Card-->
+        <article class="planet" tabindex="0" aria-label="Planet Mars">
+          <a href="mars.html" style="text-decoration:none; color:inherit;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Image of Mars" />
+            <h3>Mars</h3>
+            <p>The Red Planet, known for its iron oxide surface and two tiny moons: Phobos and Deimos.</p>
+            <p class="moon-list"><strong>Moons:</strong> Phobos, Deimos</p>
+          </a>
+        </article>
+        <!-- Jupiter Card -->
+        <article class="planet" tabindex="0" aria-label="Planet Jupiter">
+          <a href="jupiter.html" style="text-decoration:none; color:inherit;">
+            <img src="https://space-facts.com/wp-content/uploads/jupiter.png" alt="Image of Jupiter" />
+            <h3>Jupiter</h3>
+            <p>The gas giant with over 79 moons, including the famous Galilean moons that shaped planetary science.</p>
+            <p class="moon-list"><strong>Key Moons:</strong> Io, Europa, Ganymede, Callisto</p>
+          </a>
+        </article>
+        <!-- Saturn Card-->
+        <article class="planet" tabindex="0" aria-label="Planet Saturn">
+          <a href="saturn.html" style="text-decoration:none; color:inherit;">
+            <img src="https://space-facts.com/wp-content/uploads/saturn.png" alt="Image of Saturn" />
+            <h3>Saturn</h3>
+            <p>Celebrated for its stunning ring system and Titan, its largest moon with a thick atmosphere.</p>
+            <p class="moon-list"><strong>Notable Moon:</strong> Titan</p>
+          </a>
+        </article>
+        <!-- Uranus Card -->
+        <article class="planet" tabindex="0" aria-label="Planet Uranus">
+          <a href="uranus.html" style="text-decoration:none; color:inherit;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg" alt="Image of Uranus" />
+            <h3>Uranus</h3>
+            <p>An icy giant with a distinct blue-green color thanks to methane in its atmosphere, orbited by 27 known moons.</p>
+            <p class="moon-list"><strong>Notable Moon:</strong> Miranda</p>
+          </a>
+        </article>
+        <!-- Neptune Card-->
+        <article class="planet" tabindex="0" aria-label="Planet Neptune">
+          <a href="neptune.html" style="text-decoration:none; color:inherit;">
+            <img src="https://space-facts.com/wp-content/uploads/neptune.png" alt="Image of Neptune" />
+            <h3>Neptune</h3>
+            <p>The distant, wind-swept blue giant with 14 moons, including the geologically active Triton.</p>
+            <p class="moon-list"><strong>Notable Moon:</strong> Triton</p>
+          </a>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Solar System Explorer | Data sourced from NASA, ESA, ISRO, JAXA official websites.
+  </footer>
+</div>
+
+<script>
+  //solar system background animation with twinkling stars
+
+  const canvas = document.getElementById('solarSystemCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  // Star properties for twinkling background stars
+  const starsCount = 180;
+  let stars = [];
+
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createStars() {
+    stars = [];
+    for(let i=0; i<starsCount; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.3 + 0.3,
+        alpha: Math.random(),
+        delta: (Math.random() * 0.02) + 0.009
+      });
+    }
+  }
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    createStars();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const sun = {radius: 30, color: '#ffd93b'};
+  const planets = [
+    {name: 'Mercury', distance: 60, radius: 5, color: '#b9b9b9', speed: 0.047, orbitOffset: 0},
+    {name: 'Venus', distance: 90, radius: 10, color: '#d9b38c', speed: 0.035, orbitOffset: 1},
+    {name: 'Earth', distance: 120, radius: 10, color: '#3a86ff', speed: 0.03, orbitOffset: 2},
+    {name: 'Mars', distance: 150, radius: 8, color: '#ff6b6b', speed: 0.024, orbitOffset: 3},
+    {name: 'Jupiter', distance: 200, radius: 18, color: '#f9a825', speed: 0.013, orbitOffset: 4},
+    {name: 'Saturn', distance: 250, radius: 16, color: '#f0e68c', speed: 0.01, orbitOffset: 5},
+    {name: 'Uranus', distance: 290, radius: 14, color: '#6bc5c9', speed: 0.007, orbitOffset: 6},
+    {name: 'Neptune', distance: 330, radius: 14, color: '#254b95', speed: 0.005, orbitOffset: 7}
+  ];
+
+  let angle = 0;
+
+  function drawStars() {
+    stars.forEach(star => {
+      star.alpha += star.delta;
+      if(star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
+
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+      ctx.fill();
+    });
+  }
+
+  function drawSun(centerX, centerY) {
+    // Glowinglayers around sun
+    const auraRadii = [sun.radius * 1.6, sun.radius * 2.8, sun.radius * 4.4];
+    const auraColors = ['#ffef7d55', '#ffe87e33', '#ffd24c22'];
+
+    auraRadii.forEach((r, i) => {
+      const gradient = ctx.createRadialGradient(centerX, centerY, sun.radius, centerX, centerY, r);
+      gradient.addColorStop(0, auraColors[i]);
+      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, r, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+
+    // Sun core
+    const pulse = 3 * Math.sin(angle * 3);
+    const sunGradient = ctx.createRadialGradient(centerX, centerY, sun.radius * 0.5 + pulse * 0.3, centerX, centerY, sun.radius + pulse);
+    sunGradient.addColorStop(0, '#fff3a1');
+    sunGradient.addColorStop(1, sun.color);
+    ctx.fillStyle = sunGradient;
+    ctx.shadowColor = '#fffbb099';
+    ctx.shadowBlur = 28 + pulse * 2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, sun.radius + pulse * 0.5, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+
+    drawStars();
+
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    drawSun(centerX, centerY);
+    ctx.strokeStyle = '#00d9b844';
+    ctx.lineWidth = 1.2;
+    planets.forEach(p => {
+      const pulsation = 2 * Math.sin(angle * 2 + p.orbitOffset) * 0.5;
+      const wobbleX = 1.5 * Math.sin(angle * 1.5 + p.orbitOffset);
+      const wobbleY = 1.5 * Math.cos(angle * 1.7 + p.orbitOffset);
+      ctx.beginPath();
+      ctx.ellipse(centerX + wobbleX, centerY + wobbleY, p.distance + pulsation, p.distance * 0.95 + pulsation * 0.7, 0, 0, 2 * Math.PI);
+      ctx.stroke();
+    });
+
+    // Draws planets with natural elliptical orbits and vertical oscillations
+    planets.forEach((planet, i) => {
+      const baseAngle = angle * planet.speed + i;
+      // Elliptical orbit with subtle wobble for realism
+      const orbitX = planet.distance + 3 * Math.sin(angle * 2.3 + i * 1.7);
+      const orbitY = planet.distance * 0.95 + 2 * Math.cos(angle * 1.9 + i * 1.4);
+      const x = centerX + orbitX * Math.cos(baseAngle);
+      const y = centerY + orbitY * Math.sin(baseAngle);
+      
+      const gradient = ctx.createRadialGradient(x - planet.radius / 3, y - planet.radius / 3, 0, x, y, planet.radius);
+      gradient.addColorStop(0, '#ffffffcc');
+      gradient.addColorStop(1, planet.color);
+      ctx.fillStyle = gradient;
+
+      ctx.beginPath();
+      ctx.shadowColor = '#000000cc';
+      ctx.shadowBlur = 10;
+      ctx.arc(x, y, planet.radius, 0, 2 * Math.PI);
+      ctx.fill();
+      if (planet.name === 'Saturn') {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle * 0.02 + Math.sin(angle * 0.5) * 0.3);
+        ctx.strokeStyle = '#dcc87fbb';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, planet.radius * 1.8, planet.radius * 0.75, 0.25, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.restore();
+      }
+    });
+
+    angle += 0.012;
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
+`
+

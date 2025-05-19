@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Solar System Explorer - Planets & Dwarf Planets</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: #ebebeb;
+    background-color: #0a1128;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  #solarSystemCanvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background-color: transparent;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: #00d9b8;
+    letter-spacing: 3px;
+    text-shadow: 0 0 16px #00d9b8cc;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.05rem;
+    padding: 0.6rem 1.5rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    color: #00d9b8;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #00d9b8cc;
+    color: #0a1128;
+    box-shadow: 0 0 14px #00d9b8dd;
+  }
+
+  section {
+    background: rgba(10, 17, 40, 0.88);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 0 30px #00d9b85a;
+    margin-bottom: 2.5rem;
+  }
+  section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    color: #00d9b8;
+    margin-bottom: 1.3rem;
+    border-bottom: 3px solid #00d9b8;
+    padding-bottom: 0.5rem;
+  }
+
+  .planet-card, .dwarf-planet-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+    justify-content: center;
+  }
+  .planet, .dwarf-planet {
+    background: rgba(0, 31, 47, 0.85);
+    border-radius: 15px;
+    flex: 1 1 260px;
+    max-width: 320px;
+    box-shadow:
+      0 0 15px #00d9b885,
+      inset 0 0 25px #00d9b844;
+    padding: 1.5rem;
+    color: #d0e8f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .planet:hover, .dwarf-planet:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 0 25px #00d9b8cc,
+      inset 0 0 35px #00d9b8aa;
+  }
+  img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    margin-bottom: 1.2rem;
+    border-radius: 50%;
+    border: 3px solid #00d9b8aa;
+    box-shadow: 0 0 15px #00d9b8cc;
+    filter: drop-shadow(0 0 4px #00d9b8cc);
+  }
+  h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: #00ccc5;
+    text-shadow: 0 0 6px #00ccc5bb;
+    text-align: center;
+  }
+  p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #a8d2dbcc;
+    text-align: center;
+  }
+  .moon-list {
+    margin-top: 0.6rem;
+    font-size: 0.88rem;
+    color:#7fbbc5dd;
+    font-style: italic;
+    text-align: center;
+  }
+  footer {
+    color: #4499ccbb;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+    padding-top: 3rem;
+    text-shadow: 0 0 4px #112233aa;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      max-width: 100%;
+      padding: 2rem 1rem 3rem;
+    }
+    .planet-card, .dwarf-planet-card {
+      gap: 1rem;
+    }
+    .planet, .dwarf-planet {
+      flex: 1 1 45%;
+      max-width: 45%;
+    }
+  }
+  @media (max-width: 600px) {
+    header h1 { font-size: 2rem;}
+    nav {
+      flex-direction: column;
+      gap: 1.1rem;
+      padding: 0 10px;
+    }
+    nav a {
+      font-size: 1rem;
+      padding: 0.5rem 1.2rem;
+    }
+    .planet, .dwarf-planet {
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+    section {
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+<canvas id="solarSystemCanvas" aria-hidden="true"></canvas>
+<div class="container">
+<header>
+  <h1>Planets & Dwarf Planets of the Solar System</h1>
+</header>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="missions.html">Missions</a>
+  <a href="agencies.html">Space Agencies</a>
+</nav>
+
+<section aria-labelledby="planets-heading">
+  <h2 id="planets-heading">Planets</h2>
+  <p style="max-width:700px; margin: 0 auto 2rem auto; color:#a8d2dbcc; font-size:1.08rem; text-align:center;">
+    The Solar System contains eight major planets, each unique in its composition, atmosphere, and features. The four inner planets—Mercury, Venus, Earth, and Mars—are rocky and terrestrial, while the four outer planets—Jupiter, Saturn, Uranus, and Neptune—are gas or ice giants with thick atmospheres and many moons. Together, these planets orbit the Sun and form the core of our planetary neighborhood, offering a diverse array of environments, from scorching surfaces to icy clouds and powerful storms.
+  </p>
+  <div class="planet-card">
+    <div class="planet" id="mercury">
+      <a href="mercury.html"><img src="https://space-facts.com/wp-content/uploads/mercury.png" alt="Mercury" /></a>
+      <h3><a href="mercury.html" style="color:#00ccc5; text-decoration:none;">Mercury</a></h3>
+    </div>
+    <div class="planet" id="venus">
+      <a href="venus.html"><img src="https://space-facts.com/wp-content/uploads/venus.png" alt="Venus" /></a>
+      <h3><a href="venus.html" style="color:#00ccc5; text-decoration:none;">Venus</a></h3>
+    </div>
+    <div class="planet" id="earth">
+      <a href="earth.html"><img src="https://space-facts.com/wp-content/uploads/earth.png" alt="Earth" /></a>
+      <h3><a href="earth.html" style="color:#00ccc5; text-decoration:none;">Earth</a></h3>
+    </div>
+    <div class="planet" id="mars">
+      <a href="mars.html"><img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Mars" /></a>
+      <h3><a href="mars.html" style="color:#00ccc5; text-decoration:none;">Mars</a></h3>
+    </div>
+    <div class="planet" id="jupiter">
+      <a href="jupiter.html"><img src="https://space-facts.com/wp-content/uploads/jupiter.png" alt="Jupiter" /></a>
+      <h3><a href="jupiter.html" style="color:#00ccc5; text-decoration:none;">Jupiter</a></h3>
+    </div>
+    <div class="planet" id="saturn">
+      <a href="saturn.html"><img src="https://space-facts.com/wp-content/uploads/saturn.png" alt="Saturn" /></a>
+      <h3><a href="saturn.html" style="color:#00ccc5; text-decoration:none;">Saturn</a></h3>
+    </div>
+    <div class="planet" id="uranus">
+      <a href="uranus.html"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg" alt="Uranus" /></a>
+      <h3><a href="uranus.html" style="color:#00ccc5; text-decoration:none;">Uranus</a></h3>
+    </div>
+    <div class="planet" id="neptune">
+      <a href="neptune.html"><img src="https://space-facts.com/wp-content/uploads/neptune.png" alt="Neptune" /></a>
+      <h3><a href="neptune.html" style="color:#00ccc5; text-decoration:none;">Neptune</a></h3>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="dwarf-planets-heading">
+  <h2 id="dwarf-planets-heading">Dwarf Planets</h2>
+  <p style="max-width:700px; margin: 0 auto 2rem auto; color:#a8d2dbcc; font-size:1.08rem; text-align:center;">
+    Dwarf planets are celestial bodies that orbit the Sun and share many characteristics with the eight major planets, but they are not dominant enough to clear their orbital paths of other debris. Notable dwarf planets in our Solar System include Pluto, Eris, Haumea, Makemake, and Ceres. These worlds are fascinating for their unique features, such as icy surfaces, unusual shapes, and distant orbits, offering valuable insights into the history and diversity of our Solar System.
+  </p>
+  <div class="dwarf-planet-card">
+    <div class="dwarf-planet" id="pluto">
+      <a href="pluto.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Pluto-01_Stern_03_Pluto_Color_TXT.jpg/640px-Pluto-01_Stern_03_Pluto_Color_TXT.jpg" alt="Pluto" /></a>
+      <h3><a href="pluto.html" style="color:#00ccc5; text-decoration:none;">Pluto</a></h3>
+    </div>
+    <div class="dwarf-planet" id="eris">
+      <a href="eris.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Artist%27s_impression_dwarf_planet_Eris.jpg/640px-Artist%27s_impression_dwarf_planet_Eris.jpg" alt="Eris" /></a>
+      <h3><a href="eris.html" style="color:#00ccc5; text-decoration:none;">Eris</a></h3>
+    </div>
+    <div class="dwarf-planet" id="haumea">
+      <a href="haumea.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Haumea%2C_Celestia.jpg/640px-Haumea%2C_Celestia.jpg" alt="Haumea" /></a>
+      <h3><a href="haumea.html" style="color:#00ccc5; text-decoration:none;">Haumea</a></h3>
+    </div>
+    <div class="dwarf-planet" id="makemake">
+      <a href="makemake.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Artist%E2%80%99s_impression_of_the_surface_of_the_distant_dwarf_planet_Makemake.jpg/640px-Artist%E2%80%99s_impression_of_the_surface_of_the_distant_dwarf_planet_Makemake.jpg" alt="Makemake" /></a>
+      <h3><a href="makemake.html" style="color:#00ccc5; text-decoration:none;">Makemake</a></h3>
+    </div>
+    <div class="dwarf-planet" id="ceres">
+      <a href="ceres.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Ceres_Blender_render.webp/640px-Ceres_Blender_render.webp.png" alt="Ceres" /></a>
+      <h3><a href="ceres.html" style="color:#00ccc5; text-decoration:none;">Ceres</a></h3>
+    </div>
+  </div>
+</section>
+<footer>
+  &copy; 2025 Solar System Explorer | Data sourced from NASA, ESA, ISRO, JAXA official websites.
+</footer>
+</div>
+
+<script>
+  // Solar system background animation with twinkling stars and glowing sun
+  const canvas = document.getElementById('solarSystemCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  const starsCount = 180;
+  let stars = [];
+
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createStars() {
+    stars = [];
+    for (let i = 0; i < starsCount; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.3 + 0.3,
+        alpha: Math.random(),
+        delta: (Math.random() * 0.02) + 0.009
+      });
+    }
+  }
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Venus</title>
+<style>
+  body {
+    background-image: url('https://images-assets.nasa.gov/image/PIA00271/PIA00271~orig.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.65);
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000000cc;
+  }
+  h1, h2 {
+    text-align: center;
+    color: #ffd580;
+    text-shadow: 0 0 6px #ffd580cc;
+    margin-bottom: 1rem;
+  }
+  p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.2em;
+  }
+  a {
+    color: #ffe066;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #ffd580;
+  }
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    font-style: italic;
+    color: #ffd580;
+  }
+  nav.planet-nav {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    position: relative;
+    z-index: 2;
+  }
+  nav.planet-nav a {
+    display: inline-block;
+    margin: 0 1.2rem;
+    color: #fff;
+    background: rgba(0, 217, 184, 0.85);
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-size: 1.05rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px #0003;
+  }
+  nav.planet-nav a:hover, nav.planet-nav a:focus {
+    background: #00d9b8;
+    color: #222;
+    box-shadow: 0 4px 16px #00d9b899;
+  }
+</style>
+</head>
+<body>
+<nav class="planet-nav" role="navigation" aria-label="Page navigation">
+  <a href="index.html">Home</a>
+  <a href="missions.html">Missions</a>
+  <a href="agencies.html">Space Agencies</a>
+</nav>
+<div class="content" role="main">
+  <h1>Venus</h1>
+  <p>Venus is the second planet from the sun and is often referred to as Earth's twin due to their similar size and mass. However, that's where the similarities end. Venus has a thick atmosphere composed mainly of carbon dioxide, which traps heat and makes it the hottest planet in the solar system.</p>
+  <p>Venus has no moons.</p>
+  <h2>Moons of Venus</h2>
+  <p>Venus has no natural satellites, or moons.</p>
+  <h2>Rovers Sent to Venus</h2>
+  <p>The Soviet Union's Venera program sent several rovers to Venus, including Venera 7, which became the first spacecraft to land on another planet in 1970.</p>
+  <a href="https://en.wikipedia.org/wiki/Venera_program" target="_blank" rel="noopener noreferrer">Learn more about the Venera program</a>
+</div>
+<footer>
+  &copy; 2025 Solar System Explorer
+</footer>
+</body>
+</html>

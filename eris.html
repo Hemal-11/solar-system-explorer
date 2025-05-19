@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eris - Solar System Explorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Roboto', sans-serif;
+    color: #ebebeb;
+    background-image: url('https://i.gifer.com/origin/d4/d49d0f65d84f5568902b4a26430154ca_w200.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 17, 40, 0.85);
+    z-index: 0;
+  }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(0, 31, 47, 0.9);
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    z-index: 10;
+    box-shadow: 0 2px 10px #000000bb;
+  }
+  nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    color: #00d9b8;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.8rem;
+    border: 2px solid #00d9b8;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #00d9b8;
+    color: #0a1128;
+  }
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 6rem auto 3rem;
+    background: rgba(0,31,47,0.85);
+    border-radius: 15px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 0 25px #00d9b899;
+  }
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 0.7rem;
+    color: #00d9b8;
+    text-align: center;
+    text-shadow: 0 0 8px #00d9b8bb;
+  }
+  article p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #aad6ffdd;
+    margin-bottom: 1rem;
+  }
+  footer {
+    text-align: center;
+    color: #4488ccbb;
+    font-style: italic;
+    padding-top: 1.5rem;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
+  }
+  @media (max-width: 600px) {
+    main {
+      margin: 5rem 1rem 2rem;
+      padding: 1.8rem 1rem;
+    }
+    header h1 {
+      font-size: 2.2rem;
+    }
+    nav {
+      padding: 1rem;
+    }
+    nav a {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" aria-label="Go to Home Page">Home</a>
+  <a href="planets.html" aria-label="Browse all Planets">Planets</a>
+</nav>
+<main>
+  <header>
+    <h1>Eris</h1>
+  </header>
+  <article>
+    <p>
+      Eris is a distant dwarf planet and one of the largest known objects in the Solar System beyond Neptune. It resides in the scattered disc, a remote region populated by icy bodies and is considered one of the most massive known dwarf planets, slightly smaller in diameter but more massive than Pluto.
+    </p>
+    <p>
+      Discovered in January 2005 by a team led by astronomer Mike Brown, Eris’s discovery was a major factor in the redefinition of what constitutes a planet. Its detection, along with other similar objects, led the International Astronomical Union (IAU) in 2006 to formally define the term "dwarf planet," resulting in Pluto’s reclassification.
+    </p>
+    <p>
+      Eris has a diameter of about 2,326 kilometers (1,445 miles) and is estimated to be about 27% more massive than Pluto. Its orbit is highly elliptical and inclined, taking it as far as 97 astronomical units (AU) from the Sun at its most distant point (aphelion) and as close as 38 AU at its nearest (perihelion). One year on Eris (one orbit around the Sun) takes about 558 Earth years.
+    </p>
+    <p>
+      The surface of Eris is extremely cold, with temperatures estimated to be around -231°C (-384°F). It is believed to be covered with a layer of nitrogen-rich ice, and its high reflectivity (albedo) suggests a bright, icy surface. Spectroscopic studies indicate the presence of methane ice, similar to Pluto and Neptune’s moon Triton.
+    </p>
+    <p>
+      Eris has one known moon, Dysnomia, discovered shortly after Eris itself. Dysnomia’s orbit has allowed astronomers to determine Eris’s mass with high precision. The Eris-Dysnomia system is an important target for understanding the formation and evolution of distant Solar System bodies.
+    </p>
+    <p>
+      Eris’s discovery challenged the definition of a planet and was a major factor in the International Astronomical Union’s 2006 decision to create the "dwarf planet" category. Eris, along with Pluto, Haumea, Makemake, and Ceres, became the first members of this new class.
+    </p>
+    <p>
+      No spacecraft has yet visited Eris, but it remains a subject of interest for future missions due to its size, distance, and the clues it offers about the early Solar System. Its slow orbit and remote location make it a challenging target for exploration, but studying Eris could provide valuable information about the outer reaches of our planetary system.
+    </p>
+    <p>
+      <strong>Moon:</strong> Dysnomia
+    </p>
+    <p>
+      <strong>Suitability for Life:</strong> There is no evidence for life on Eris. Its extremely low temperatures, lack of atmosphere, and distance from the Sun make it inhospitable to life as we know it.
+    </p>
+    <p>
+      <strong>Fun Fact:</strong> Eris is named after the Greek goddess of strife and discord, reflecting the controversy its discovery caused in the astronomical community. Its moon, Dysnomia, is named after Eris’s daughter, the spirit of lawlessness.
+    </p>
+  </article>
+</main>
+<footer>
+  &copy; 2025 Solar System Explorer | Data sourced from NASA, ESA, ISRO, JAXA official websites.
+</footer>
+</body>
+</html>

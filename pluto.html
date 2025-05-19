@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pluto - Solar System Explorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Roboto', sans-serif;
+    color: #ebebeb;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Pluto_Rotation_Movie.gif/640px-Pluto_Rotation_Movie.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 17, 40, 0.85);
+    z-index: 0;
+  }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(0, 31, 47, 0.9);
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    z-index: 10;
+    box-shadow: 0 2px 10px #000000bb;
+  }
+  nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    color: #00d9b8;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.8rem;
+    border: 2px solid #00d9b8;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #00d9b8;
+    color: #0a1128;
+  }
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 6rem auto 3rem;
+    background: rgba(0, 31, 47, 0.85);
+    border-radius: 15px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 0 25px #00d9b899;
+  }
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 0.7rem;
+    color: #00d9b8;
+    text-align: center;
+    text-shadow: 0 0 8px #00d9b8bb;
+  }
+  article p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #aad6ffdd;
+    margin-bottom: 1rem;
+  }
+  footer {
+    text-align: center;
+    color: #4488ccbb;
+    font-style: italic;
+    padding-top: 1.5rem;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
+  }
+  @media (max-width: 600px) {
+    main {
+      margin: 5rem 1rem 2rem;
+      padding: 1.8rem 1rem;
+    }
+    header h1 {
+      font-size: 2.2rem;
+    }
+    nav {
+      padding: 1rem;
+    }
+    nav a {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" aria-label="Go to Home Page">Home</a>
+  <a href="planets.html" aria-label="Browse all Planets">Planets</a>
+</nav>
+<main>
+  <header>
+    <h1>Pluto</h1>
+  </header>
+  <article>
+    <p>Pluto is a dwarf planet located in the Kuiper Belt, a vast region of icy bodies and remnants from the early Solar System beyond Neptune. Discovered in 1930 by Clyde Tombaugh, Pluto was originally classified as the ninth planet. However, in 2006, the International Astronomical Union reclassified it as a dwarf planet due to its inability to clear its orbit of other debris.</p>
+    <p>Pluto has a diameter of about 2,377 kilometers, making it smaller than Earth's Moon. Its orbit is highly elliptical and inclined, sometimes bringing it closer to the Sun than Neptune for short periods. A single year on Pluto (one orbit around the Sun) takes about 248 Earth years, and a day on Pluto (one rotation) lasts about 6.4 Earth days.</p>
+    <p>The surface of Pluto is composed primarily of nitrogen ice, with traces of methane and carbon monoxide. The New Horizons spacecraft flyby in 2015 revealed a surprisingly complex and geologically active world. Notable features include Sputnik Planitia, a vast heart-shaped plain of nitrogen ice, towering water-ice mountains, and possible cryovolcanoes that may have erupted slushy mixtures of water and other materials.</p>
+    <p>Pluto's thin atmosphere is mostly nitrogen, with minor amounts of methane and carbon monoxide. The atmosphere expands as Pluto approaches the Sun and freezes onto the surface as it moves farther away. Haze layers in the atmosphere create a blue tint and contribute to frost and seasonal changes on the surface.</p>
+    <p>Pluto has five known moons: Charon, Styx, Nix, Kerberos, and Hydra. Charon, the largest, is about half the size of Pluto itself, making the Pluto-Charon system unique in the Solar System. The two bodies orbit a point in space outside of Pluto, effectively forming a binary system. Charon's surface shows evidence of past geological activity, including canyons and possible cryovolcanism.</p>
+    <p>Despite its distance and cold temperatures (averaging around -229°C or -380°F), Pluto is a world of remarkable diversity. Its surface shows evidence of recent geological changes, suggesting that it may still be active today. The possibility of a subsurface ocean beneath its icy crust is a topic of ongoing research and interest.</p>
+    <p><strong>Moons:</strong> Charon, Styx, Nix, Kerberos, Hydra</p>
+    <p><strong>Suitability for Life:</strong> There is no known life on Pluto. Its extremely cold temperatures, thin atmosphere, and lack of liquid water make it inhospitable to life as we know it. However, the discovery of organic molecules and the possibility of a subsurface ocean keep Pluto of scientific interest for astrobiology.</p>
+    <p><strong>Exploration:</strong> Pluto was visited by NASA's New Horizons spacecraft in July 2015, providing the first close-up images and data of this distant world. The mission revealed Pluto's diverse geology, atmosphere, and moons, transforming our understanding of the outer Solar System and raising new questions about the formation and evolution of planetary bodies.</p>
+  </article>
+</main>
+<footer>
+  &copy; 2025 Solar System Explorer | Data sourced from NASA, ESA, ISRO, JAXA official websites.
+</footer>
+</body>
+</html>

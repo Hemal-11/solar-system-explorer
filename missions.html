@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Solar System Explorer - Missions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: #ebebeb;
+    background-color: #0a1128;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  #solarSystemCanvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background-color: transparent;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: #00d9b8;
+    letter-spacing: 3px;
+    text-shadow: 0 0 16px #00d9b8cc;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.05rem;
+    padding: 0.6rem 1.5rem;
+    border: 2px solid #00d9b8cc;
+    border-radius: 25px;
+    color: #00d9b8;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #00d9b8cc;
+    color: #0a1128;
+    box-shadow: 0 0 14px #00d9b8dd;
+  }
+
+  section {
+    background: rgba(10, 17, 40, 0.88);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 0 30px #00d9b85a;
+    margin-bottom: 2.5rem;
+  }
+  section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    color: #00d9b8;
+    margin-bottom: 1.3rem;
+    border-bottom: 3px solid #00d9b8;
+    padding-bottom: 0.5rem;
+  }
+
+  ul.missions-list {
+    list-style-type: none;
+    padding-left: 1rem;
+    color: #a8d2dbcc;
+    line-height: 1.5;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  ul.missions-list li {
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+  }
+  ul.missions-list li strong {
+    color: #00d9b8;
+    font-weight: 700;
+    text-shadow: 0 0 4px #00d9b8bb;
+  }
+  ul.missions-list li a {
+    color: #00d9b8cc;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  ul.missions-list li a:hover {
+    text-decoration: underline;
+  }
+
+  footer {
+    color: #4499ccbb;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+    padding-top: 3rem;
+    text-shadow: 0 0 4px #112233aa;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      max-width: 100%;
+      padding: 2rem 1rem 3rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 2rem;}
+    nav {
+      flex-direction: column;
+      gap: 1.1rem;
+      padding: 0 10px;
+    }
+    nav a {
+      font-size: 1rem;
+      padding: 0.5rem 1.2rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    header h1 {
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+    }
+  }
+</style>
+</head>
+<body>
+<canvas id="solarSystemCanvas" aria-hidden="true"></canvas>
+<div class="container">
+  <header>
+    <h1>Probes, Rovers &amp; Missions</h1>
+  </header>
+  <nav role="navigation" aria-label="Page navigation">
+    <a href="index.html" tabindex="0">Home</a>
+    <a href="planets.html" tabindex="0">Planets</a>
+    <a href="agencies.html" tabindex="0">Space Agencies</a>
+  </nav>
+  <main>
+    <section aria-labelledby="latest-news-heading">
+      <h2 id="latest-news-heading">Latest Space News</h2>
+      <ul id="latestNewsList" class="missions-list" role="list">
+        <li>Loading latest news...</li>
+      </ul>
+    </section>
+    <section aria-labelledby="missions-heading">
+      <h2 id="missions-heading">Important Space Missions</h2>
+      <ul class="missions-list" role="list">
+        <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_11" target="_blank" rel="noopener">Apollo 11</a></strong>: First crewed Moon landing mission (1969).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Voyager_program" target="_blank" rel="noopener">Voyager 1 &amp; 2</a></strong>: Probes exploring outer planets and interstellar space (1977).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mariner_4" target="_blank" rel="noopener">Mariner 4</a></strong>: First Mars flyby, transmitted first close-up Mars images (1965).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Curiosity_(rover)" target="_blank" rel="noopener">Curiosity Rover</a></strong>: Mars rover exploring Gale Crater geology (2012-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/International_Space_Station" target="_blank" rel="noopener">International Space Station (ISS)</a></strong>: Modular space habitat and research station (2000-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Chandrayaan-2" target="_blank" rel="noopener">Chandrayaan-2</a></strong>: India's lunar orbiter and lander mission (2019).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/New_Horizons" target="_blank" rel="noopener">New Horizons</a></strong>: Pluto flyby and Kuiper Belt exploration (2015).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Pioneer_10" target="_blank" rel="noopener">Pioneer 10</a></strong>: First spacecraft to pass through the asteroid belt and make direct observations of Jupiter (1972).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mars_Express" target="_blank" rel="noopener">Mars Express</a></strong>: ESA Mars orbiter studying surface & atmosphere (2003-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Hubble_Space_Telescope" target="_blank" rel="noopener">Hubble Space Telescope</a></strong>: Wide-ranging astronomical observatory in low Earth orbit (1990-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Galileo_(spacecraft)" target="_blank" rel="noopener">Galileo</a></strong>: Jupiter orbiter that studied Jovian system and moons (1995-2003).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mars_Phoenix" target="_blank" rel="noopener">Mars Phoenix</a></strong>: Polar lander that studied ice and soil (2008).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Juno_(spacecraft)" target="_blank" rel="noopener">Juno</a></strong>: Currently studying Jupiter's structure and magnetosphere (2016-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Spirit_and_Opportunity" target="_blank" rel="noopener">Spirit & Opportunity</a></strong>: Twin Mars rovers exploring geology and searching for water evidence (2004-2019).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/ExoMars" target="_blank" rel="noopener">ExoMars</a></strong>: ESA/Roscosmos Mars exploration program (ongoing).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Chang%27e_4" target="_blank" rel="noopener">Chang'e 4</a></strong>: First soft landing on Moon's far side by China (2019).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Phoenix_(spacecraft)" target="_blank" rel="noopener">Phoenix Mars Lander</a></strong>: Mars polar region study (2008).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mangalyaan" target="_blank" rel="noopener">Mangalyaan (Mars Orbiter Mission)</a></strong>: India's Mars orbiter, first successful Indian interplanetary mission (2013).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Venera_7" target="_blank" rel="noopener">Venera 7</a></strong>: First spacecraft to land on another planet — Venus (1970).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/OSIRIS-REx" target="_blank" rel="noopener">OSIRIS-REx</a></strong>: NASA asteroid sample return mission (2016-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Luna_2" target="_blank" rel="noopener">Luna 2</a></strong>: First human-made object to impact the Moon (1959).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Luna_9" target="_blank" rel="noopener">Luna 9</a></strong>: First spacecraft to achieve lunar soft landing (1966).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mariner_9" target="_blank" rel="noopener">Mariner 9</a></strong>: First spacecraft to orbit another planet (Mars, 1971).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Messenger_(spacecraft)" target="_blank" rel="noopener">MESSENGER</a></strong>: Orbited Mercury to map and analyze its surface (2011-2015).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Cassini%E2%80%93Huygens" target="_blank" rel="noopener">Cassini-Huygens</a></strong>: Long-term Saturn orbiter and Titan lander (1997-2017).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Hayabusa" target="_blank" rel="noopener">Hayabusa</a></strong>: JAXA's asteroid sample return mission (2003-2010).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Hayabusa2" target="_blank" rel="noopener">Hayabusa2</a></strong>: Follow-up asteroid sample return (2014-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Phobos-Grunt" target="_blank" rel="noopener">Phobos-Grunt</a></strong>: Russian mission to Phobos moon of Mars (2011, failed landing).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Spirit_(rover)" target="_blank" rel="noopener">Spirit Rover</a></strong>: Mars surface exploration (2004-2010).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Opportunity_(rover)" target="_blank" rel="noopener">Opportunity Rover</a></strong>: Mars surface exploration (2004-2019).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mars_2020" target="_blank" rel="noopener">Perseverance Rover</a></strong>: Current Mars rover searching for signs of past life (2020-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Viking_1" target="_blank" rel="noopener">Viking 1</a></strong>: First successful Mars landing with surface experiments (1976-1982).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Viking_2" target="_blank" rel="noopener">Viking 2</a></strong>: Second Viking Mars mission with lander and orbiter (1976-1980).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Lunar_Orbiter" target="_blank" rel="noopener">Lunar Orbiter Program</a></strong>: Mapped the Moon for Apollo landings (1966-1967).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Pioneer_11" target="_blank" rel="noopener">Pioneer 11</a></strong>: Explored Jupiter and Saturn, first to encounter Saturn (1973-1995).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Spitzer_Space_Telescope" target="_blank" rel="noopener">Spitzer Space Telescope</a></strong>: Infrared space observatory (2003-2020).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Kepler_space_telescope" target="_blank" rel="noopener">Kepler Space Telescope</a></strong>: Discovered thousands of exoplanets (2009-2018).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/James_Webb_Space_Telescope" target="_blank" rel="noopener">James Webb Space Telescope</a></strong>: Advanced infrared observatory launched in 2021.</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Venera_13" target="_blank" rel="noopener">Venera 13</a></strong>: Venus surface lander that transmitted photos and analyses (1982).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Spirit_Rover" target="_blank" rel="noopener">Spirit Rover</a></strong>: Explored Mars surface geology (2004-2010).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Lunar_Reconnaissance_Orbiter" target="_blank" rel="noopener">Lunar Reconnaissance Orbiter (LRO)</a></strong>: Mapping lunar surface and resources (2009-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Chang%27e_5" target="_blank" rel="noopener">Chang'e 5</a></strong>: Sample return mission from the Moon (2020).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Japanese_akatsuki" target="_blank" rel="noopener">Akatsuki</a></strong>: JAXA's Venus climate orbiter (2010-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mars_Orbiter_Mission" target="_blank" rel="noopener">Mars Orbiter Mission (MOM)</a></strong>: India's first Mars mission (2013-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Deep_Space_1" target="_blank" rel="noopener">Deep Space 1</a></strong>: Technology demonstration mission (1998-2001).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Mir_Space_Station" target="_blank" rel="noopener">Mir Space Station</a></strong>: Russian modular space station (1986-2001).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Gravity_Recovery_and_Climate_Experiment" target="_blank" rel="noopener">GRACE</a></strong>: Mapped Earth's gravity field (2002-2017).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Clementine_(spacecraft)" target="_blank" rel="noopener">Clementine</a></strong>: Lunar and asteroid imaging mission (1994).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/OSIRIS-REx" target="_blank" rel="noopener">OSIRIS-REx</a></strong>: Asteroid sample return mission to Bennu (2016-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/DSCOVR" target="_blank" rel="noopener">DSCOVR</a></strong>: Earth observation and solar wind monitoring (2015-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/ExoMars_Trace_Gas_Orbiter" target="_blank" rel="noopener">ExoMars Trace Gas Orbiter</a></strong>: Detecting atmospheric gases on Mars (2016-present).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Artemis_program" target="_blank" rel="noopener">Artemis I</a></strong>: First uncrewed mission of NASA's Artemis program, orbiting the Moon (2022).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Chandrayaan-3" target="_blank" rel="noopener">Chandrayaan-3</a></strong>: India's successful lunar lander and rover mission (2023).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Luna_25" target="_blank" rel="noopener">Luna 25</a></strong>: Russian lunar lander mission (2023, failed landing).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/OSIRIS-REx" target="_blank" rel="noopener">OSIRIS-REx Sample Return</a></strong>: NASA's asteroid sample return capsule landed on Earth (2023).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/JUICE_(spacecraft)" target="_blank" rel="noopener">JUICE</a></strong>: ESA's Jupiter Icy Moons Explorer launched to study Ganymede, Callisto, and Europa (2023).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Peregrine_Mission_One" target="_blank" rel="noopener">Peregrine Mission One</a></strong>: First U.S. commercial lunar lander (2024, failed mission).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/SLIM_(spacecraft)" target="_blank" rel="noopener">SLIM</a></strong>: Japan's Smart Lander for Investigating Moon, achieved precise lunar landing (2024).</li>
+        <li><strong><a href="https://en.wikipedia.org/wiki/Artemis_II" target="_blank" rel="noopener">Artemis II</a></strong>: Planned first crewed lunar flyby of Artemis program (scheduled for 2025).</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Solar System Explorer | Data sourced from NASA, ESA, ISRO, JAXA official websites.
+  </footer>
+</div>
+
+<script>
+  const canvas = document.getElementById('solarSystemCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  const starsCount = 180;
+  let stars = [];
+
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createStars() {
+    stars = [];
+    for(let i=0; i<starsCount; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.3 + 0.3,
+        alpha: Math.random(),
+        delta: (Math.random() * 0.02) + 0.009
+      });
+    }
+  }
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    createStars();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const sun = {radius: 30, color: '#ffd93b'};
+  const planets = [
+    {name: 'Mercury', distance: 60, radius: 5, color: '#b9b9b9', speed: 0.047, orbitOffset: 0},
+    {name: 'Venus', distance: 90, radius: 10, color: '#d9b38c', speed: 0.035, orbitOffset: 1},
+    {name: 'Earth', distance: 120, radius: 10, color: '#3a86ff', speed: 0.03, orbitOffset: 2},
+    {name: 'Mars', distance: 150, radius: 8, color: '#ff6b6b', speed: 0.024, orbitOffset: 3},
+    {name: 'Jupiter', distance: 200, radius: 18, color: '#f9a825', speed: 0.013, orbitOffset: 4},
+    {name: 'Saturn', distance: 250, radius: 16, color: '#f0e68c', speed: 0.01, orbitOffset: 5},
+    {name: 'Uranus', distance: 290, radius: 14, color: '#6bc5c9', speed: 0.007, orbitOffset: 6},
+    {name: 'Neptune', distance: 330, radius: 14, color: '#254b95', speed: 0.005, orbitOffset: 7}
+  ];
+
+  let angle = 0;
+
+  function drawStars() {
+    stars.forEach(star => {
+      star.alpha += star.delta;
+      if(star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
+
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+      ctx.fill();
+    });
+  }
+
+  function drawSun(centerX, centerY) {
+    const auraRadii = [sun.radius * 1.6, sun.radius * 2.8, sun.radius * 4.4];
+    const auraColors = ['#ffef7d55', '#ffe87e33', '#ffd24c22'];
+
+    auraRadii.forEach((r, i) => {
+      const gradient = ctx.createRadialGradient(centerX, centerY, sun.radius, centerX, centerY, r);
+      gradient.addColorStop(0, auraColors[i]);
+      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, r, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+
+    const pulse = 3 * Math.sin(angle * 3);
+    const sunGradient = ctx.createRadialGradient(centerX, centerY, sun.radius * 0.5 + pulse * 0.3, centerX, centerY, sun.radius + pulse);
+    sunGradient.addColorStop(0, '#fff3a1');
+    sunGradient.addColorStop(1, sun.color);
+    ctx.fillStyle = sunGradient;
+    ctx.shadowColor = '#fffbb099';
+    ctx.shadowBlur = 28 + pulse * 2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, sun.radius + pulse * 0.5, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+
+    drawStars();
+
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    drawSun(centerX, centerY);
+
+    ctx.strokeStyle = '#00d9b844';
+    ctx.lineWidth = 1.2;
+    planets.forEach(p => {
+      const pulsation = 2 * Math.sin(angle * 2 + p.orbitOffset) * 0.5;
+      const wobbleX = 1.5 * Math.sin(angle * 1.5 + p.orbitOffset);
+      const wobbleY = 1.5 * Math.cos(angle * 1.7 + p.orbitOffset);
+      ctx.beginPath();
+      ctx.ellipse(centerX + wobbleX, centerY + wobbleY, p.distance + pulsation, p.distance * 0.95 + pulsation * 0.7, 0, 0, 2 * Math.PI);
+      ctx.stroke();
+    });
+
+    planets.forEach((planet, i) => {
+      const baseAngle = angle * planet.speed + i;
+      const orbitX = planet.distance + 3 * Math.sin(angle * 2.3 + i * 1.7);
+      const orbitY = planet.distance * 0.95 + 2 * Math.cos(angle * 1.9 + i * 1.4);
+      const x = centerX + orbitX * Math.cos(baseAngle);
+      const y = centerY + orbitY * Math.sin(baseAngle);
+
+      const gradient = ctx.createRadialGradient(x - planet.radius / 3, y - planet.radius / 3, 0, x, y, planet.radius);
+      gradient.addColorStop(0, '#ffffffcc');
+      gradient.addColorStop(1, planet.color);
+      ctx.fillStyle = gradient;
+
+      ctx.beginPath();
+      ctx.shadowColor = '#000000cc';
+      ctx.shadowBlur = 10;
+      ctx.arc(x, y, planet.radius, 0, 2 * Math.PI);
+      ctx.fill();
+
+      if (planet.name === 'Saturn') {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle * 0.02 + Math.sin(angle * 0.5) * 0.3);
+        ctx.strokeStyle = '#dcc87fbb';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, planet.radius * 1.8, planet.radius * 0.75, 0.25, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.restore();
+      }
+    });
+
+    angle += 0.012;
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  // Fetches and displays latest space news
+  async function fetchLatestSpaceNews() {
+    const newsList = document.getElementById('latestNewsList');
+    try {
+      const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=5&ordering=-published_at');
+      const data = await res.json();
+      newsList.innerHTML = '';
+      data.results.forEach(article => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong><a href="${article.url}" target="_blank" rel="noopener">${article.title}</a></strong>: ${article.summary ? article.summary.substring(0, 120) + '...' : ''}`;
+        newsList.appendChild(li);
+      });
+    } catch (e) {
+      newsList.innerHTML = '<li>Could not load latest news at this time.</li>';
+    }
+  }
+  fetchLatestSpaceNews();
+</script>
+</body>
+</html> 

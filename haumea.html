@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Haumea - Solar System Explorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+  html, body {
+    margin:0; padding:0; height:100%;
+    font-family: 'Roboto', sans-serif;
+    color: #ebebeb;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Haumea_rotation_with_ring.gif/640px-Haumea_rotation_with_ring.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(10,17,40,0.60);
+    z-index: 0;
+  }
+  nav {
+    position: fixed;
+    top: 0; left:0; right:0;
+    background: rgba(0,31,47,0.85);
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    z-index: 10;
+    box-shadow: 0 2px 10px #000000bb;
+  }
+  nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    color: #00d9b8;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.8rem;
+    border: 2px solid #00d9b8;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #00d9b8;
+    color: #0a1128;
+  }
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 6rem auto 3rem;
+    background: rgba(0,31,47,0.75);
+    border-radius: 15px;
+    padding: 2.5rem 2rem;
+    border: 2px solid rgba(0,217,184,0.25);
+    box-shadow: 0 0 25px #00d9b899;
+  }
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 0.7rem;
+    color: #00d9b8;
+    text-align: center;
+    text-shadow: 0 0 8px #00d9b8bb;
+  }
+  article p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #aad6ffdd;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 8px #000a;
+  }
+  footer {
+    text-align: center;
+    color: #4488ccbb;
+    font-style: italic;
+    padding-top: 1.5rem;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
+  }
+  @media (max-width: 600px) {
+    main {
+      margin: 5rem 1rem 2rem;
+      padding: 1.8rem 1rem;
+    }
+    header h1 {
+      font-size: 2.2rem;
+    }
+    nav {
+      padding: 1rem;
+    }
+    nav a {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" aria-label="Go to Home Page">Home</a>
+  <a href="planets.html" aria-label="Browse all Planets">Planets</a>
+</nav>
+<main>
+  <header>
+    <h1>Haumea</h1>
+  </header>
+  <article>
+    <p>
+      Haumea is a fascinating dwarf planet located in the Kuiper Belt, a distant region of the Solar System beyond Neptune filled with icy bodies. Discovered in 2004 by a team led by Mike Brown, Haumea stands out due to its unique elongated, ellipsoid shape, which is the result of its extremely rapid rotation—completing one spin in just about 3.9 hours, one of the fastest rotation rates of any known large body in the Solar System.
+    </p>
+    <p>
+      Haumea's rapid spin causes it to be stretched into a football-like shape rather than a sphere. Its longest axis is about 2,322 kilometers, while its shortest is only about half that length. This fast rotation is thought to be the result of a massive collision in the distant past, which may also have created its moons and a family of icy fragments that share similar orbits.
+    </p>
+    <p>
+      The surface of Haumea is covered mostly by crystalline water ice, which is unusual for objects in the Kuiper Belt and suggests ongoing or recent geological activity. The presence of crystalline ice, which is easily broken down by cosmic radiation, hints that Haumea’s surface is being renewed, possibly by cryovolcanism or impacts. Haumea also has a dark red spot, which may be richer in minerals or organic compounds.
+    </p>
+    <p>
+      Haumea is orbited by two known moons, Hiʻiaka and Namaka. Hiʻiaka, the larger of the two, is notable for its own water-ice surface and was named after a Hawaiian goddess. Namaka, the smaller moon, has a more eccentric orbit. The discovery of these moons, along with Haumea’s unique characteristics, has provided astronomers with valuable insights into the formation and evolution of distant Solar System bodies.
+    </p>
+    <p>
+      Haumea is also the first trans-Neptunian object known to have a ring system. The ring, discovered in 2017, is located about 2,287 kilometers from Haumea’s center and is thought to be composed of icy particles. This makes Haumea one of only a few minor planets known to have rings, joining the ranks of the giant planets.
+    </p>
+    <p>
+      <strong>Moons:</strong> Hiʻiaka, Namaka
+    </p>
+    <p>
+      <strong>Suitability for Life:</strong> There is no evidence for life on Haumea. Its extremely cold temperatures (around -241°C or -402°F), lack of atmosphere, and distance from the Sun make it inhospitable to life as we know it.
+    </p>
+    <p>
+      <strong>Fun Fact:</strong> Haumea is named after the Hawaiian goddess of fertility and childbirth, reflecting its discovery from Hawaii and its role as the "parent" of a family of icy bodies. Its moons are also named after figures from Hawaiian mythology.
+    </p>
+    <p>
+      <strong>Exploration:</strong> No spacecraft has visited Haumea, but it remains an intriguing target for future missions due to its unique shape, rapid rotation, ring system, and moons. Studying Haumea could provide important clues about the processes shaping the outer Solar System.
+    </p>
+  </article>
+</main>
+<footer>
+  &copy; 2025 Solar System Explorer | Data sourced from NASA, ESA, ISRO, JAXA official websites.
+</footer>
+</body>
+</html>
