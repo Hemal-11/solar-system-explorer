@@ -103,6 +103,33 @@
       margin-bottom: 0;       /* Remove extra space after last button */
     }
   }
+
+  /* Update for planet card buttons (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune) */
+  .planet a {
+    background: rgba(0, 31, 47, 0.92);      /* subtle dark background */
+    color: #00ccc5;                         /* keep planet color text */
+    border: 2px solid #00ccc555;            /* softer, less neon border */
+    border-radius: 22px;
+    padding: 0.5rem 1.3rem;
+    margin-bottom: 0.7rem;                  /* add more space below button */
+    margin-top: 0.3rem;                     /* add space above button */
+    box-shadow: 0 2px 8px #22335533;        /* soft shadow, not neon */
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+
+  .planet a:hover,
+  .planet a:focus {
+    background: #00ccc5;
+    color: #0a1128;
+    box-shadow: 0 4px 16px #00ccc533;
+    border-color: #00ccc5;
+    outline: none;
+  }
 </style>
 </head>
 <body>
