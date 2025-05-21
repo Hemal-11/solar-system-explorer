@@ -136,12 +136,20 @@
     header h1 { font-size: 2rem;}
     nav {
       flex-direction: column;
-      gap: 1.1rem;
-      padding: 0 10px;
+      gap: 1rem;              /* Adds vertical space between buttons */
+      padding: 1rem 0.5rem;   /* Reduces horizontal padding for small screens */
+      margin-bottom: 1.5rem;  /* Adds space below nav */
     }
     nav a {
+      width: 100%;            /* Make buttons full width for easier tapping */
+      margin-bottom: 0.5rem;  /* Space between each button */
       font-size: 1rem;
-      padding: 0.5rem 1.2rem;
+      padding: 0.7rem 1.2rem; /* Larger tap area */
+      box-sizing: border-box;
+      text-align: center;
+    }
+    nav a:last-child {
+      margin-bottom: 0;       /* Remove extra space after last button */
     }
   }
 
