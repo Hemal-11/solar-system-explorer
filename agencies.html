@@ -439,7 +439,15 @@
       }
     });
   });
+
+  // Prevent scroll for agency links with href="#"
+  document.querySelectorAll('nav a[href="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+    });
+  });
 </script>
 
 </html></body></body>
 </html>
+``` 

@@ -106,8 +106,8 @@
     flex: 1 1 250px;
     max-width: 280px;
     box-shadow:
-      0 0 15px #00d9b885,
-      inset 0 0 25px #00d9b844;
+      0 2px 10px #1a2333cc, /* softer, deeper shadow */
+      inset 0 0 12px #00d9b822; /* much lighter inner glow */
     padding: 1.2rem;
     color: #d0e8f2;
     display: flex;
@@ -119,8 +119,8 @@
   .planet:hover {
     transform: translateY(-8px);
     box-shadow:
-      0 0 25px #00d9b8cc,
-      inset 0 0 35px #00d9b8aa;
+      0 6px 24px #1a2333cc,
+      inset 0 0 18px #00d9b822;
   }
   .planet img {
     width: 140px;
@@ -128,9 +128,9 @@
     object-fit: contain;
     margin-bottom: 1.1rem;
     border-radius: 50%;
-    border: 3px solid #00d9b8aa;
-    box-shadow: 0 0 15px #00d9b8cc;
-    filter: drop-shadow(0 0 4px #00d9b8cc);
+    border: 2px solid #b7c7d6; /* subtle, soft border */
+    box-shadow: 0 2px 12px #22335555; /* soft shadow, not neon */
+    filter: none; /* remove neon drop-shadow */
   }
   .planet h3 {
     font-family: 'Orbitron', sans-serif;
@@ -182,10 +182,15 @@
       flex-direction: column;
       gap: 1.1rem;
       padding: 0 10px;
+      margin-bottom: 2rem; /* Add spacing below nav */
     }
     nav a {
       font-size: 1rem;
-      padding: 0.5rem 1.2rem;
+      padding: 0.7rem 1.2rem; /* Slightly taller buttons for touch */
+      margin-bottom: 0.5rem;  /* Add space between buttons */
+      width: 100%;            /* Make buttons full width for easier tapping */
+      box-sizing: border-box;
+      text-align: center;
     }
     .planet {
       max-width: 100%;
@@ -420,28 +425,34 @@
     // Draws planets with natural elliptical orbits and vertical oscillations
     planets.forEach((planet, i) => {
       const baseAngle = angle * planet.speed + i;
-      // Elliptical orbit with subtle wobble for realism
       const orbitX = planet.distance + 3 * Math.sin(angle * 2.3 + i * 1.7);
       const orbitY = planet.distance * 0.95 + 2 * Math.cos(angle * 1.9 + i * 1.4);
       const x = centerX + orbitX * Math.cos(baseAngle);
       const y = centerY + orbitY * Math.sin(baseAngle);
-      
-      const gradient = ctx.createRadialGradient(x - planet.radius / 3, y - planet.radius / 3, 0, x, y, planet.radius);
-      gradient.addColorStop(0, '#ffffffcc');
-      gradient.addColorStop(1, planet.color);
+
+      // Use a soft, natural shadow and gentle color halo instead of neon
+      const gradient = ctx.createRadialGradient(
+        x, y, 0,
+        x, y, planet.radius * 1.18
+      );
+      gradient.addColorStop(0, '#fff9f3cc'); // soft white core
+      gradient.addColorStop(0.6, planet.color + 'cc'); // planet color, slightly transparent
+      gradient.addColorStop(1, 'rgba(80,100,140,0.10)'); // very subtle blue-gray outer edge
+
       ctx.fillStyle = gradient;
 
       ctx.beginPath();
-      ctx.shadowColor = '#000000cc';
+      ctx.shadowColor = 'rgba(60,70,90,0.13)'; // gentle, cool shadow
       ctx.shadowBlur = 10;
       ctx.arc(x, y, planet.radius, 0, 2 * Math.PI);
       ctx.fill();
+
       if (planet.name === 'Saturn') {
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(angle * 0.02 + Math.sin(angle * 0.5) * 0.3);
-        ctx.strokeStyle = '#dcc87fbb';
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#e6d8b399'; // subtle, warm ring
+        ctx.lineWidth = 2.2;
         ctx.beginPath();
         ctx.ellipse(0, 0, planet.radius * 1.8, planet.radius * 0.75, 0.25, 0, 2 * Math.PI);
         ctx.stroke();
@@ -457,5 +468,4 @@
 </script>
 </body>
 </html>
-`
 
