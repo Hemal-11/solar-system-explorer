@@ -175,20 +175,20 @@
     header h1 { font-size: 2rem;}
     nav {
       flex-direction: column;
-      gap: 1rem;              /* Adds vertical space between buttons */
-      padding: 1rem 0.5rem;   /* Reduces horizontal padding for small screens */
-      margin-bottom: 1.5rem;  /* Adds space below nav */
+      gap: 1rem;           
+      padding: 1rem 0.5rem;  
+      margin-bottom: 1.5rem;  
     }
     nav a {
-      width: 100%;            /* Make buttons full width for easier tapping */
-      margin-bottom: 0.5rem;  /* Space between each button */
+      width: 100%;           
+      margin-bottom: 0.5rem;  
       font-size: 1rem;
-      padding: 0.7rem 1.2rem; /* Larger tap area */
+      padding: 0.7rem 1.2rem; 
       box-sizing: border-box;
       text-align: center;
     }
     nav a:last-child {
-      margin-bottom: 0;       /* Remove extra space after last button */
+      margin-bottom: 0;      
     }
     .planet, .dwarf-planet {
       max-width: 100%;
@@ -196,6 +196,35 @@
     }
     section {
       padding: 1.5rem 1rem;
+    }
+    nav.planet-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;             
+      align-items: stretch;
+      padding: 1rem 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    nav.planet-nav a {
+      width: 100%;
+      margin-bottom: 0;       
+      font-size: 1rem;
+      padding: 0.7rem 1.2rem;
+      box-sizing: border-box;
+      text-align: center;
+      background: none !important;   
+      color: #fff !important;        
+      border: 2px solid #fff;
+      border-radius: 22px;
+      box-shadow: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    nav.planet-nav a:hover,
+    nav.planet-nav a:focus {
+      border-color: #aeeaff;
+      color: #aeeaff;
+      background: none !important;
+      outline: none;
     }
   }
 </style>
@@ -320,3 +349,4 @@
 </script>
 </body>
 </html>
+``` 
